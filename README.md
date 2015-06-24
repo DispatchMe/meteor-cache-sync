@@ -110,7 +110,7 @@ Events:
 ```
 
 Error event types:
-* `missing header`
+* `http missing header`
 * `http request`
 * `http denied`
 * `transform`
