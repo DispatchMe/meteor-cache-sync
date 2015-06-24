@@ -1,4 +1,4 @@
-/* global CacheSync: false, HTTP: false, Mongo: false, console:false, Events: true */
+/* global CacheSync: false, HTTP: false, Mongo: false, console:false, Events: true, fooCache: true, foo: true */
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // HTTP
@@ -63,15 +63,29 @@ CacheSync.state.emit = function(name, data) {
   return _emit.apply(CacheSync.state, _.toArray(arguments));
 };
 
+var _emitState = CacheSync.state.emitState;
+
+CacheSync.state.emitState = function(name, data) {
+  var jsonData = JSON.stringify(data);
+
+  console.log('[Events] emitState: "' + name + '"', jsonData);
+
+  if (typeof triggered[name] === 'undefined') {
+    triggered[name] = [];
+  }
+
+  triggered[name].push(jsonData);
+
+  return _emitState.apply(CacheSync.state, _.toArray(arguments));
+};
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // TEST SYNC
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 var urlPrefix = 'http://test/v1/foo';
 
-var name = 'foo';
-
-foo = new Mongo.Collection('test_' + name, { connection: null });
+foo = new Mongo.Collection('test_foo', { connection: null });
 
 fooCache = new CacheSync({
   collection: foo,
@@ -79,7 +93,7 @@ fooCache = new CacheSync({
   headers: function() {
     return {
       auth: 'set'
-    }
+    };
   },
 
   paginatedUrl: function(offset, limit) {
@@ -90,38 +104,10 @@ fooCache = new CacheSync({
     return urlPrefix + '?filter[id]=' + id;
   },
 
-  updatedAtUrl: function(updatedAt) {
-    return urlPrefix + '?filter[updated_at_gt]=' + updatedAt;
+  updatedAtUrl: function(updatedAt, limit) {
+    return urlPrefix + '?filter[updated_at_gt]=' + updatedAt + '&limit=' + limit;
   },
 
-  updatedAt: function(doc) {
-    return doc.updatedAt;
-  },
-
-  list: function(result) {
-    return result && result.foo;
-  },
-
-  selector: function(doc) {
-    return { $or: [
-      // Match any old id's
-      { id: ''+doc.id },
-      { id: +doc.id },
-      // Match all new _id's
-      { _id: ''+doc.id }
-    ]
-    };
-  },
-
-  generateId: function (doc) {
-    return ''+doc.id;
-  },
-
-  transform: function(doc) {
-    return doc;
-  },
-  // everyTick: 5,
-  // dateToString: dateToString,
   check: {
     id: Number,
     name: String,

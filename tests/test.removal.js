@@ -1,9 +1,9 @@
 /* global Events: false, fooCache: false, foo: false */
-Tinytest.add('Dispatch cache-sync - test load:1', function(test) {
+Tinytest.add('Dispatch cache-sync - test removal load:1', function(test) {
 
   test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'count', 'loadAt'), {
     _id: 'test_foo',
-    initialized: false,
+    initialized: true,
     page: 0
   });
   // FIRST SYNC
@@ -19,19 +19,19 @@ Tinytest.add('Dispatch cache-sync - test load:1', function(test) {
   test.instanceOf(handle.callback, Function);
   test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt'), {
     _id: 'test_foo',
-    initialized: false,
+    initialized: true,
     page: 0,
     count: {
       issues: 0,
       removed: 0,
-      inserted: 0,
-      updated: 0
+      inserted: 350,
+      updated: 10
     }
   });
 
   handle.callback(null, {
     data: {
-      foo: _.map(_.range(0, 100), function (i) {
+      foo: _.map(_.range(10, 110), function (i) {
         return { id: i, name: 'foo' + i, updatedAt: new Date() };
       })
     }
@@ -39,13 +39,13 @@ Tinytest.add('Dispatch cache-sync - test load:1', function(test) {
 
   test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt'), {
     _id: 'test_foo',
-    initialized: false,
+    initialized: true,
     page: 1,
     count: {
       issues: 0,
       removed: 0,
-      inserted: 100,
-      updated: 0
+      inserted: 350,
+      updated: 110
     }
   });
 
@@ -56,7 +56,7 @@ Tinytest.add('Dispatch cache-sync - test load:1', function(test) {
   test.equal(Events.getState('loading'), { name: 'test_foo', page: 0 });
 });
 
-Tinytest.add('Dispatch cache-sync - test load:2', function(test) {
+Tinytest.add('Dispatch cache-sync - test removal load:2', function(test) {
   // SECOND SYNC
   Events.clear();
 
@@ -64,14 +64,13 @@ Tinytest.add('Dispatch cache-sync - test load:2', function(test) {
 
   test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt'), {
     _id: 'test_foo',
-    initialized:
-    false,
+    initialized: true,
     page: 1,
     count: {
       issues: 0,
       removed: 0,
-      inserted: 100,
-      updated: 0
+      inserted: 350,
+      updated: 110
     }
   });
 
@@ -84,19 +83,19 @@ Tinytest.add('Dispatch cache-sync - test load:2', function(test) {
 
   test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt'), {
     _id: 'test_foo',
-    initialized: false,
+    initialized: true,
     page: 1,
     count: {
       issues: 0,
       removed: 0,
-      inserted: 100,
-      updated: 0
+      inserted: 350,
+      updated: 110
     }
   });
 
   handle.callback(null, {
     data: {
-      foo: _.map(_.range(100, 200), function (i) {
+      foo: _.map(_.range(110, 210), function (i) {
         return { id: i, name: 'foo' + i, updatedAt: new Date() };
       })
     }
@@ -104,13 +103,13 @@ Tinytest.add('Dispatch cache-sync - test load:2', function(test) {
 
   test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt'), {
     _id: 'test_foo',
-    initialized: false,
+    initialized: true,
     page: 2,
     count: {
       issues: 0,
       removed: 0,
-      inserted: 200,
-      updated: 0
+      inserted: 350,
+      updated: 210
     }
   });
 
@@ -121,7 +120,7 @@ Tinytest.add('Dispatch cache-sync - test load:2', function(test) {
   test.equal(Events.getState('loading'), { name: 'test_foo', page: 1 });
 });
 
-Tinytest.add('Dispatch cache-sync - test load:3', function(test) {
+Tinytest.add('Dispatch cache-sync - test removal load:3', function(test) {
   // THIRD SYNC
   Events.clear();
 
@@ -129,13 +128,13 @@ Tinytest.add('Dispatch cache-sync - test load:3', function(test) {
 
   test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt'), {
     _id: 'test_foo',
-    initialized: false,
+    initialized: true,
     page: 2,
     count: {
       issues: 0,
       removed: 0,
-      inserted: 200,
-      updated: 0
+      inserted: 350,
+      updated: 210
     }
   });
 
@@ -146,19 +145,19 @@ Tinytest.add('Dispatch cache-sync - test load:3', function(test) {
   test.instanceOf(handle.callback, Function);
   test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt'), {
     _id: 'test_foo',
-    initialized: false,
+    initialized: true,
     page: 2,
     count: {
       issues: 0,
       removed: 0,
-      inserted: 200,
-      updated: 0
+      inserted: 350,
+      updated: 210
     }
   });
 
   handle.callback(null, {
     data: {
-      foo: _.map(_.range(200, 300), function (i) {
+      foo: _.map(_.range(210, 310), function (i) {
         return { id: i, name: 'foo' + i, updatedAt: new Date() };
       })
     }
@@ -167,13 +166,13 @@ Tinytest.add('Dispatch cache-sync - test load:3', function(test) {
 
   test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt'), {
     _id: 'test_foo',
-    initialized: false,
+    initialized: true,
     page: 3,
     count: {
       issues: 0,
       removed: 0,
-      inserted: 300,
-      updated: 0
+      inserted: 350,
+      updated: 310
     }
   });
 
@@ -184,7 +183,7 @@ Tinytest.add('Dispatch cache-sync - test load:3', function(test) {
   test.equal(Events.getState('loading'), { name: 'test_foo', page: 2 });
 });
 
-Tinytest.add('Dispatch cache-sync - test load:4', function(test) {
+Tinytest.add('Dispatch cache-sync - test removal load:4', function(test) {
   // THIRD SYNC
   // This third sync will return only 50 items - since the limit is 100 we assume that the end is reached
   Events.clear();
@@ -193,13 +192,13 @@ Tinytest.add('Dispatch cache-sync - test load:4', function(test) {
 
   test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt'), {
     _id: 'test_foo',
-    initialized: false,
+    initialized: true,
     page: 3,
     count: {
       issues: 0,
       removed: 0,
-      inserted: 300,
-      updated: 0
+      inserted: 350,
+      updated: 310
     }
   });
 
@@ -211,20 +210,21 @@ Tinytest.add('Dispatch cache-sync - test load:4', function(test) {
 
   test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt'), {
     _id: 'test_foo',
-    initialized: false,
+    initialized: true,
     page: 3,
     count: {
       issues: 0,
       removed: 0,
-      inserted: 300,
-      updated: 0
+      inserted: 350,
+      updated: 310
     }
   });
 
+  test.equal(foo.find().count(), 350, 'not all items are cached');
 
   handle.callback(null, {
     data: {
-      foo: _.map(_.range(300, 350), function (i) {
+      foo: _.map(_.range(310, 350), function (i) {
         return { id: i, name: 'foo' + i, updatedAt: new Date() };
       })
     }
@@ -237,31 +237,33 @@ Tinytest.add('Dispatch cache-sync - test load:4', function(test) {
     page: 0,
     count: {
       issues: 0,
-      removed: 0,
+      removed: 10,
       inserted: 350,
-      updated: 0
+      updated: 350
     }
   });
 
   test.isFalse(Events.wasTriggered('synchronized'), 'sync event was not triggered');
-  test.isTrue(Events.wasTriggered('initialized'), 'initialized event should be triggered');
+  test.isFalse(Events.wasTriggered('initialized'), 'initialized event should not be triggered');
   test.isTrue(Events.wasTriggered('loaded'), 'loaded event should be triggered');
-
 
   test.isTrue(Events.wasTriggered('loading'), 'loading event was not triggered');
   test.equal(Events.getState('loading'), { name: 'test_foo', page: 3 });
 
-  test.equal(foo.find().count(), 350, 'not all items are cached');
+  test.equal(foo.find().count(), 340, '10 items should have been removed');
 
-  // Check each document data
-  var a = 0;
+  // Check each document data, start at index 10 since we should have removed the first 10
+  // items
+  var a = 10;
   foo.find().forEach(function(doc) {
     test.equal(doc._id, ''+a);
     test.equal(doc.name, 'foo' + a);
 
-    // Check that the inserted event was triggered pr. document
-    if (a >= 300) {
-      test.isTrue(Events.wasTriggered('inserted', { name: 'test_foo', id: doc._id }));
+    // Check that the cached event was triggered pr. document
+    if (a >= 310 && a < 350) {
+      test.isTrue(Events.wasTriggered('updated', { name: 'test_foo', id: doc._id }));
+    } else if (a < 10) {
+      test.isTrue(Events.wasTriggered('removed', { name: 'test_foo', id: doc._id }));
     } else {
       test.isFalse(Events.wasTriggered('inserted', { name: 'test_foo', id: doc._id }));
     }
@@ -270,7 +272,7 @@ Tinytest.add('Dispatch cache-sync - test load:4', function(test) {
 
 });
 
-Tinytest.add('Dispatch cache-sync - test sync:1', function(test) {
+Tinytest.add('Dispatch cache-sync - test removal sync:1', function(test) {
 
   // REGULAR SYNC
   Events.clear();
@@ -290,15 +292,15 @@ Tinytest.add('Dispatch cache-sync - test sync:1', function(test) {
     page: 0,
     count: {
       issues: 0,
-      removed: 0,
+      removed: 10,
       inserted: 350,
-      updated: 0
+      updated: 350
     }
   });
 
   handle.callback(null, {
     data: {
-      foo: _.map(_.range(0, 10), function (i) {
+      foo: _.map(_.range(10, 20), function (i) {
         return { id: i, name: 'foo' + i, updatedAt: new Date() };
       })
     }
@@ -311,9 +313,9 @@ Tinytest.add('Dispatch cache-sync - test sync:1', function(test) {
     page: 0,
     count: {
       issues: 0,
-      removed: 0,
+      removed: 10,
       inserted: 350,
-      updated: 10
+      updated: 360
     }
   });
 
@@ -323,11 +325,11 @@ Tinytest.add('Dispatch cache-sync - test sync:1', function(test) {
 
   test.isFalse(Events.wasTriggered('loading'), 'loading event should not trigger on a sync');
 
-  test.equal(foo.find().count(), 350, 'There should not be more or less since this is a sync');
+  test.equal(foo.find().count(), 340, 'There should not be more or less since this is a sync');
 
   foo.find().forEach(function(doc) {
     // Check that the cached event was triggered pr. document
-    if (doc._id < 10) {
+    if (doc._id >= 10 && doc._id < 20) {
       test.isTrue(Events.wasTriggered('updated', { name: 'test_foo', id: doc._id }));
     } else {
       test.isFalse(Events.wasTriggered('updated', { name: 'test_foo', id: doc._id }));

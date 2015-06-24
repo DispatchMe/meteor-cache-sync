@@ -20,7 +20,15 @@ Package.onUse(function (api) {
     'raix:eventstate@0.0.2'
   ], 'server');
 
-  api.addFiles('lib/server.js', ['server']);
+  api.addFiles([
+    'lib/server.js',
+    'lib/cache.sync.add.document.js',
+    'lib/cache.sync.last.updated.js',
+    'lib/cache.sync.js',
+    'lib/cache.sync.load.js',
+    'lib/cache.sync.http.call.js',
+    'lib/cache.sync.one.js'
+  ], ['server']);
   api.addFiles('lib/client.js', ['client']);
 });
 
@@ -37,6 +45,10 @@ Package.onTest(function(api) {
   api.addFiles([
     'tests/prepare.js',
     'tests/environment.js',
-    'tests/test.initial.sync.js'
+    'tests/test.initial.sync.js',
+    'tests/test.removal.js',
+    'tests/test.updates.js',
+    'tests/test.load.one.js',
+    'tests/test.failures.js'
   ], 'server');
 });
