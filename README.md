@@ -99,6 +99,8 @@ Events:
 * `initialized.[collection name]`
 * `error` - Emitted on errors
 * `waiting` - Emitted if CacheSync is paused and "load" or "sync" can't run
+* `paused` - Emitted when sync is paused
+* `resumed` - Emitted when sync is resumed
 
 ##### Error event
 ```js
