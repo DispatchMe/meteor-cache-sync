@@ -26,7 +26,18 @@ Tinytest.add('Dispatch cache-sync - test failures sync:1', function(test) {
     }
   });
 
-  handle.callback(new Error('test error'));
+  var error = new Error('test error');
+
+  error.response = {
+    statusCode: 401,
+    content: '',
+    data: null,
+    headers: {
+      auth: 'set'
+    }
+  };
+
+  handle.callback(error);
 
 
   test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt'), {
@@ -50,7 +61,15 @@ Tinytest.add('Dispatch cache-sync - test failures sync:1', function(test) {
     headers: {
       auth: 'set'
     },
-    message: 'test error'
+    message: 'test error',
+    response: {
+      statusCode: 401,
+      content: '',
+      data: null,
+      headers: {
+        auth: 'set'
+      }
+    }
   });
 
   test.isFalse(Events.wasTriggered('synchronized'), 'sync event was not triggered');
