@@ -1,6 +1,6 @@
 Package.describe({
   name: 'dispatch:cache-sync',
-  version: '0.0.2',
+  version: '0.0.3',
   summary: 'Cache restpoints into mongodb'
 });
 
@@ -10,8 +10,7 @@ Package.onUse(function (api) {
   api.versionsFrom('1.0');
 
   api.use([
-    'mongo',
-    'dispatch:logstar@0.0.5'
+    'mongo'
   ], ['server', 'client']);
 
   api.use([

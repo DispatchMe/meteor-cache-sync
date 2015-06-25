@@ -168,15 +168,7 @@
     "testData": true,
     "TestPublish": true,
     "TestUser": true,
-
-    // our Meteor package exports
-    "CacheModifier": true,
-    "DispatchApi": true,
     "InfiniteQueue": true,
-    "Model": true,
-    "Query": true,
-    "Roles": true,
-    "Schema": true,
     
     "CacheSync": true
   }
