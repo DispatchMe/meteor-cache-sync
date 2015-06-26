@@ -86,17 +86,17 @@ Events:
 * `syncCalled` - Emitted when a sync is called
 * `sync` - Emittet when a sync starts
 * `synchronized` - Emittet when a collection is synchronized
-* `synchronized.[collection name]`
+* `[collection name].synchronized`
 * `inserted` - Emittet when a document is inserted
 * `updated` - Emittet when a doucment is updated
 * `removed` - Emittet when a document is removed
 * `loading` - Emittet when load starts
 * `loaded` - Emittet when collection has just been fully loaded
-* `loaded.[collection name]`
+* `[collection name].loaded`
 * `load` - Emittet on every page load of a collection
-* `load.[collection name]`
+* `[collection name].load`
 * `initialized` - Called when collection is loaded the first time
-* `initialized.[collection name]`
+* `[collection name].initialized`
 * `error` - Emitted on errors
 * `waiting` - Emitted if CacheSync is paused and "load" or "sync" can't run
 * `paused` - Emitted when sync is paused

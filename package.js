@@ -1,6 +1,6 @@
 Package.describe({
   name: 'dispatch:cache-sync',
-  version: '0.0.5',
+  version: '0.0.6',
   summary: 'Cache restpoints into mongodb'
 });
 

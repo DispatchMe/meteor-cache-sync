@@ -247,6 +247,8 @@ Tinytest.add('Dispatch cache-sync - test load:4', function(test) {
   test.isTrue(Events.wasTriggered('initialized'), 'initialized event should be triggered');
   test.isTrue(Events.wasTriggered('loaded'), 'loaded event should be triggered');
 
+  test.isTrue(Events.wasTriggered('test_foo.initialized'), 'initialized event should be triggered');
+  test.isTrue(Events.wasTriggered('test_foo.loaded'), 'loaded event should be triggered');
 
   test.isTrue(Events.wasTriggered('loading'), 'loading event was not triggered');
   test.equal(Events.getState('loading'), { name: 'test_foo', page: 3 });
@@ -318,6 +320,7 @@ Tinytest.add('Dispatch cache-sync - test sync:1', function(test) {
   });
 
   test.isTrue(Events.wasTriggered('synchronized'), 'sync event was not triggered');
+  test.isTrue(Events.wasTriggered('test_foo.synchronized'), 'sync event was not triggered');
   test.isFalse(Events.wasTriggered('initialized'), 'initialized event should not trigger');
   test.equal(Events.getState('synchronized'), { name: 'test_foo' });
 
