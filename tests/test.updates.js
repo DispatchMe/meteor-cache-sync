@@ -13,7 +13,7 @@ Tinytest.add('Dispatch cache-sync - test updates sync:1', function(test) {
   test.equal(handle.url, 'http://test/v1/foo?filter[updated_at_gt]=' +  latest.updatedAt + '&limit=100');
   test.equal(handle.options, { headers: { auth: 'set' } });
   test.instanceOf(handle.callback, Function);
-  test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt'), {
+  test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt', 'loadedAt'), {
     _id: 'test_foo',
     initialized: true,
     page: 0,
@@ -34,7 +34,7 @@ Tinytest.add('Dispatch cache-sync - test updates sync:1', function(test) {
   });
 
 
-  test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt'), {
+  test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt', 'loadedAt'), {
     _id: 'test_foo',
     initialized: true,
     page: 0,

@@ -77,7 +77,8 @@ Then call methods:
     createdAt: new Date(),
     updatedAt: null,
     syncAt: null,
-    loadAt: null
+    loadAt: null,
+    loadedAt: null
 ```
 
 #### Events
