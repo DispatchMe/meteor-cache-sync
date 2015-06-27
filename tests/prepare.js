@@ -20,6 +20,10 @@ HTTP.getHandle = function() {
 
 CacheSync.status = new Mongo.Collection(null);
 
+Tinytest.add('Dispatch cache-sync - prepare - clear status', function() {
+  CacheSync.status.remove({});
+});
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // EVENTS
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -113,4 +117,8 @@ fooCache = new CacheSync({
     name: String,
     updatedAt: Date
   }
+});
+
+Tinytest.add('Dispatch cache-sync - prepare - clear foo', function() {
+  foo.remove({});
 });

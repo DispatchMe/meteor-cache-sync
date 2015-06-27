@@ -28,6 +28,7 @@ Tinytest.add('Dispatch cache-sync - test loadOne:1', function(test) {
   handle.callback(null, {
     data: {
       foo: [
+        // Setting a string id will cause an issue since check expects a Number
         { id: id, name: 'foo' + id, updatedAt: new Date(), findOne: true }
       ]
     }
@@ -39,7 +40,7 @@ Tinytest.add('Dispatch cache-sync - test loadOne:1', function(test) {
     initialized: true,
     page: 0,
     count: {
-      issues: 0,
+      issues: 1, // Id was string
       removed: 10,
       inserted: 350,
       updated: 361

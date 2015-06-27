@@ -19,7 +19,7 @@ Tinytest.add('Dispatch cache-sync - test failures sync:1', function(test) {
     initialized: true,
     page: 0,
     count: {
-      issues: 0,
+      issues: 1,
       removed: 10,
       inserted: 350,
       updated: 361
@@ -45,7 +45,7 @@ Tinytest.add('Dispatch cache-sync - test failures sync:1', function(test) {
     initialized: true,
     page: 0,
     count: {
-      issues: 0,
+      issues: 1,
       removed: 10,
       inserted: 350,
       updated: 361
