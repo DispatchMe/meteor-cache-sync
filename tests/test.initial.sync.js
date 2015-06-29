@@ -340,6 +340,27 @@ Tinytest.add('Dispatch cache-sync - test sync:1', function(test) {
 });
 
 
+Tinytest.add('Dispatch cache-sync - check database:1', function(test) {
+  // Check that the collection doesn't contain removed data
+  // and data is valid
+  test.equal(foo.find().count(), 350, 'Document count is different than expected');
+
+  foo.find().forEach(function(doc) {
+    test.isTrue(doc._id >= 0, 'document should not exist');
+
+    test.equal(_.omit(doc, 'updatedAt', '_id'), {
+      id: +doc._id,
+      name: 'foo' + doc._id
+    }, 'document did not match schema "' + doc._id + '"');
+  });
+
+  _.each(_.range(0, 350), function(i) {
+    var doc = foo.findOne({ _id: ''+i });
+
+    test.isTrue(!!doc, 'Document not found "' + i + '"');
+  });
+});
+
 // Ref: http://vowsjs.org/#reference
 //
 // test.ok({ message: 'Ok' })

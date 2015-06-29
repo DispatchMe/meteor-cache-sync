@@ -21,7 +21,7 @@ Tinytest.add('Dispatch cache-sync - test loadOne:1', function(test) {
       issues: 0,
       removed: 10,
       inserted: 350,
-      updated: 360
+      updated: 370
     }
   });
 
@@ -43,7 +43,7 @@ Tinytest.add('Dispatch cache-sync - test loadOne:1', function(test) {
       issues: 1, // Id was string
       removed: 10,
       inserted: 350,
-      updated: 361
+      updated: 371
     }
   });
 

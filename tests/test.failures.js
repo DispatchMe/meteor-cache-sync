@@ -22,7 +22,7 @@ Tinytest.add('Dispatch cache-sync - test failures sync:1', function(test) {
       issues: 1,
       removed: 10,
       inserted: 350,
-      updated: 361
+      updated: 371
     }
   });
 
@@ -48,7 +48,7 @@ Tinytest.add('Dispatch cache-sync - test failures sync:1', function(test) {
       issues: 1,
       removed: 10,
       inserted: 350,
-      updated: 361
+      updated: 371
     }
   });
 
