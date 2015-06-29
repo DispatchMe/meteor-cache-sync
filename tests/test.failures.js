@@ -54,23 +54,44 @@ Tinytest.add('Dispatch cache-sync - test failures sync:1', function(test) {
 
   test.isTrue(Events.wasTriggered('error'), 'the error event should have been triggered');
 
-  test.equal(_.omit(Events.getState('error'), 'url'), {
-    name: 'test_foo',
-    type: 'http request',
-    // url: '',
-    headers: {
-      auth: 'set'
+  // Make sure the error type "http request" was triggered
+  test.isTrue(Events.wasTriggered('error', {
+    'name':'test_foo',
+    'type':'http request',
+    'url':'http://test/v1/foo?filter[updated_at_gt]=' + fooCache.lastUpdatedAt + '&limit=100',
+    'headers':{
+      'auth':'set'
     },
-    message: 'test error',
-    response: {
-      statusCode: 401,
-      content: '',
-      data: null,
-      headers: {
-        auth: 'set'
+    'response':{
+      'statusCode':401,
+      'content':'',
+      'data':null,
+      'headers':{
+        'auth':'set'
       }
-    }
-  });
+    },
+    'message':'test error'
+  }), 'HTTP request error test failed');
+
+  // Make sure that the error type "http denied" was triggered
+  test.isTrue(Events.wasTriggered('error', {
+    'name':'test_foo',
+    'type':'http denied',
+    'url':'http://test/v1/foo?filter[updated_at_gt]=' + fooCache.lastUpdatedAt + '&limit=100',
+    'headers':{
+      'auth':'set'
+    },
+    'response':{
+      'statusCode':401,
+      'content':'',
+      'data':null,
+      'headers':{
+        'auth':'set'
+      }
+    },
+    'message':'test error'
+  }), 'HTTP denied test failed');
+
 
   test.isFalse(Events.wasTriggered('synchronized'), 'sync event was not triggered');
   test.isFalse(Events.wasTriggered('initialized'), 'initialized event should not trigger');
