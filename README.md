@@ -113,12 +113,12 @@ Events:
 ```
 
 Error event types:
-* `http missing header`
-* `http request`
-* `http denied`
+* `http-missing-header`
+* `http-request`
+* `http-denied`
 * `transform`
 * `schema`
 * `after`
-* `load not supported`
-* `sync not supported`
-* `loadOne not supported`
+* `load-not-supported`
+* `sync-not-supported`
+* `loadOne-not-supported`

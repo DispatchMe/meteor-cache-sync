@@ -58,7 +58,7 @@ Tinytest.add('Dispatch cache-sync - test failures sync:1', function(test) {
   // Make sure the error type "http request" was triggered
   test.isTrue(Events.wasTriggered('error', {
     'name':'test_foo',
-    'type':'http request',
+    'type':'http-request',
     'url':'http://test/v1/foo?filter[updated_at_gt]=' + fooCache.lastUpdatedAt + '&limit=100',
     'headers':{
       'auth':'set'
@@ -77,7 +77,7 @@ Tinytest.add('Dispatch cache-sync - test failures sync:1', function(test) {
   // Make sure that the error type "http denied" was triggered
   test.isTrue(Events.wasTriggered('error', {
     'name':'test_foo',
-    'type':'http denied',
+    'type':'http-denied',
     'url':'http://test/v1/foo?filter[updated_at_gt]=' + fooCache.lastUpdatedAt + '&limit=100',
     'headers':{
       'auth':'set'
