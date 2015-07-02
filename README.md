@@ -102,6 +102,7 @@ Events:
 * `waiting` - Emitted if CacheSync is paused and "load" or "sync" can't run
 * `paused` - Emitted when sync is paused
 * `resumed` - Emitted when sync is resumed
+* `before.auto.remove` - Emitted before auto remove is done - useful if needing to unset the `__old_cache_document` flag on documents
 
 ##### Error event
 ```js
