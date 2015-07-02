@@ -1,7 +1,9 @@
 /* global Events: false, fooCache: false, foo: false */
+/* jshint maxlen: 150 */
+
 Tinytest.add('Dispatch cache-sync - test removal load:1', function(test) {
 
-  test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'count', 'loadAt', 'loadedAt'), {
+  test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'count', 'loadAt', 'loadedAt', 'lastLoadedAt'), {
     _id: 'test_foo',
     initialized: true,
     page: 0
@@ -17,7 +19,7 @@ Tinytest.add('Dispatch cache-sync - test removal load:1', function(test) {
   test.equal(handle.url, 'http://test/v1/foo?sort=id+desc&limit=100&offset=0');
   test.equal(handle.options, { headers: { auth: 'set' } });
   test.instanceOf(handle.callback, Function);
-  test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt', 'loadedAt'), {
+  test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt', 'loadedAt', 'lastLoadedAt'), {
     _id: 'test_foo',
     initialized: true,
     page: 0,
@@ -37,7 +39,7 @@ Tinytest.add('Dispatch cache-sync - test removal load:1', function(test) {
     }
   });
 
-  test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt', 'loadedAt'), {
+  test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt', 'loadedAt', 'lastLoadedAt'), {
     _id: 'test_foo',
     initialized: true,
     page: 1,
@@ -62,7 +64,7 @@ Tinytest.add('Dispatch cache-sync - test removal load:2', function(test) {
 
   fooCache.load(function () {});
 
-  test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt', 'loadedAt'), {
+  test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt', 'loadedAt', 'lastLoadedAt'), {
     _id: 'test_foo',
     initialized: true,
     page: 1,
@@ -81,7 +83,7 @@ Tinytest.add('Dispatch cache-sync - test removal load:2', function(test) {
   test.equal(handle.options, { headers: { auth: 'set' } });
   test.instanceOf(handle.callback, Function);
 
-  test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt', 'loadedAt'), {
+  test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt', 'loadedAt', 'lastLoadedAt'), {
     _id: 'test_foo',
     initialized: true,
     page: 1,
@@ -101,7 +103,7 @@ Tinytest.add('Dispatch cache-sync - test removal load:2', function(test) {
     }
   });
 
-  test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt', 'loadedAt'), {
+  test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt', 'loadedAt', 'lastLoadedAt'), {
     _id: 'test_foo',
     initialized: true,
     page: 2,
@@ -126,7 +128,7 @@ Tinytest.add('Dispatch cache-sync - test removal load:3', function(test) {
 
   fooCache.load(function () {});
 
-  test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt', 'loadedAt'), {
+  test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt', 'loadedAt', 'lastLoadedAt'), {
     _id: 'test_foo',
     initialized: true,
     page: 2,
@@ -143,7 +145,7 @@ Tinytest.add('Dispatch cache-sync - test removal load:3', function(test) {
   test.equal(handle.url, 'http://test/v1/foo?sort=id+desc&limit=100&offset=200');
   test.equal(handle.options, { headers: { auth: 'set' } });
   test.instanceOf(handle.callback, Function);
-  test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt', 'loadedAt'), {
+  test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt', 'loadedAt', 'lastLoadedAt'), {
     _id: 'test_foo',
     initialized: true,
     page: 2,
@@ -164,7 +166,7 @@ Tinytest.add('Dispatch cache-sync - test removal load:3', function(test) {
   });
 
 
-  test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt', 'loadedAt'), {
+  test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt', 'loadedAt', 'lastLoadedAt'), {
     _id: 'test_foo',
     initialized: true,
     page: 3,
@@ -190,7 +192,7 @@ Tinytest.add('Dispatch cache-sync - test removal load:4', function(test) {
 
   fooCache.load(function () {});
 
-  test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt', 'loadedAt'), {
+  test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt', 'loadedAt', 'lastLoadedAt'), {
     _id: 'test_foo',
     initialized: true,
     page: 3,
@@ -208,7 +210,7 @@ Tinytest.add('Dispatch cache-sync - test removal load:4', function(test) {
   test.equal(handle.options, { headers: { auth: 'set' } });
   test.instanceOf(handle.callback, Function);
 
-  test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt', 'loadedAt'), {
+  test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt', 'loadedAt', 'lastLoadedAt'), {
     _id: 'test_foo',
     initialized: true,
     page: 3,
@@ -231,7 +233,7 @@ Tinytest.add('Dispatch cache-sync - test removal load:4', function(test) {
   });
 
 
-  test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt', 'loadedAt'), {
+  test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt', 'loadedAt', 'lastLoadedAt'), {
     _id: 'test_foo',
     initialized: true,
     page: 0,
@@ -286,7 +288,7 @@ Tinytest.add('Dispatch cache-sync - test removal sync:1', function(test) {
   test.equal(handle.url, 'http://test/v1/foo?filter[updated_at_gt]=' +  latest.updatedAt + '&limit=100');
   test.equal(handle.options, { headers: { auth: 'set' } });
   test.instanceOf(handle.callback, Function);
-  test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt', 'loadedAt'), {
+  test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt', 'loadedAt', 'lastLoadedAt'), {
     _id: 'test_foo',
     initialized: true,
     page: 0,
@@ -307,7 +309,7 @@ Tinytest.add('Dispatch cache-sync - test removal sync:1', function(test) {
   });
 
 
-  test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt', 'loadedAt'), {
+  test.equal(_.omit(CacheSync.getStatus('test_foo' ), 'syncAt', 'createdAt', 'updatedAt', 'loadAt', 'loadedAt', 'lastLoadedAt'), {
     _id: 'test_foo',
     initialized: true,
     page: 0,
@@ -338,6 +340,30 @@ Tinytest.add('Dispatch cache-sync - test removal sync:1', function(test) {
 
 });
 
+Tinytest.add('Dispatch cache-sync - check database:2', function(test) {
+  // Check that the collection doesn't contain removed data
+  // and data is valid
+  test.equal(foo.find().count(), 340, 'Document count is different than expected');
+
+  foo.find().forEach(function(doc) {
+    test.isTrue(doc._id >= 0, 'document should not exist');
+
+    test.equal(_.omit(doc, 'updatedAt', '_id'), {
+      id: +doc._id,
+      name: 'foo' + doc._id
+    }, 'document did not match schema "' + doc._id + '"');
+  });
+
+  _.each(_.range(0, 350), function(i) {
+    var doc = foo.findOne({ _id: ''+i });
+
+    if (i < 10) {
+      test.isFalse(!!doc, 'Removed document found "' + i + '"');
+    } else {
+      test.isTrue(!!doc, 'Document not found "' + i + '"');
+    }
+  });
+});
 
 // Ref: http://vowsjs.org/#reference
 //
